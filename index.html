@@ -18,3 +18,37 @@
     </div>
 </body>
 </html>
+
+<script>
+    function GameObj( src, width, height){
+        this.x=0;
+        this.y=0;
+        this.image = new Image();
+        this.image.src = src;
+        this.width = width;
+        this.height = height;
+        this.direction = 0;
+        this.alpha = 1;
+        this.isObstacle = false;
+    }
+    // setInterval(()=>{
+    //     const starObj = new GameObj('star.png', 60, 60);
+    //     object
+    // },500)
+    const user = document.querySelector(".userWrap");
+    user.addEventListener("keydown", moveUser)
+    const moveUser = (event) => {
+        switch(event.code){
+            case "ArrowRight" :
+                user.style.left += 10; break;
+            case "ArrowLeft" : 
+                user.style.left -= 10; break;
+            case "ArrowUp" : 
+                user.style.top -= 10; break;
+            case "ArrowDown" :
+                user.style.left += 10; break;
+        }
+        
+    }
+
+</script>
