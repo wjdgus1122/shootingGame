@@ -36,19 +36,28 @@
     //     object
     // },500)
     const user = document.querySelector(".userWrap");
-    user.addEventListener("keydown", moveUser)
-    const moveUser = (event) => {
-        switch(event.code){
-            case "ArrowRight" :
-                user.style.left += 10; break;
-            case "ArrowLeft" : 
-                user.style.left -= 10; break;
-            case "ArrowUp" : 
-                user.style.top -= 10; break;
-            case "ArrowDown" :
-                user.style.left += 10; break;
-        }
-        
-    }
+    
+    window.addEventListener("keydown", function(e){
+        let key = e.keyCode;
+        let userLeft = window.pageXOffset + user.getBoundingClientRect().left;
+        let userTop = window.pageYOffset + user.getBoundingClientRect().top;
+        if(key === 37)
+            // userLeft -= 1;
+            user.style.left = (userLeft -1) + "px"
+        if(key === 39)
+            // userLeft += 1;
+            user.style.left = (userLeft + 1)  + "px"
+        if(key === 38)
+            // userTop -= 1;
+            user.style.top = (userTop - 1) + "px"
+        if(key === 40)
+            // userTop += 1;
+            user.style.top = (userTop + 1) + "px"
+        console.log("userTop : " ,userTop);
+        console.log("userLeft : " ,userLeft);
+        console.log("keyCode : ", e.keyCode);
+    });
+
+    
 
 </script>
