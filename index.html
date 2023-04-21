@@ -36,16 +36,15 @@
     //     object
     // },500)
     const user = document.querySelector(".userWrap");
-    
+    let userLeft = 0;
     window.addEventListener("keydown", function(e){
         let key = e.keyCode;
-        let userLeft = window.pageXOffset + user.getBoundingClientRect().left;
         let userTop = window.pageYOffset + user.getBoundingClientRect().top;
         if(key === 37)
-            // userLeft -= 1;
+            userLeft -= 1;
             user.style.left = (userLeft -1) + "px"
         if(key === 39)
-            // userLeft += 1;
+            userLeft += 1;
             user.style.left = (userLeft + 1)  + "px"
         if(key === 38)
             // userTop -= 1;
