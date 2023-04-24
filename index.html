@@ -41,20 +41,23 @@
         let key = e.keyCode;
         let userTop = window.pageYOffset + user.getBoundingClientRect().top;
         if(key === 37)
-            userLeft -= 1;
-            user.style.left = (userLeft -1) + "px"
+            if(userLeft > 0){
+                userLeft -= 5;
+                user.style.left = (userLeft -5) + "px"
+            }
         if(key === 39)
-            userLeft += 1;
-            user.style.left = (userLeft + 1)  + "px"
+            if(userLeft < window.innerWidth * 0.7){
+                userLeft += 5;
+                user.style.left = (userLeft + 5)  + "px"
+            }
         if(key === 38)
-            // userTop -= 1;
-            user.style.top = (userTop - 1) + "px"
+            if(userTop > 0){
+                user.style.top = (userTop - 5) + "px"
+            }
         if(key === 40)
-            // userTop += 1;
-            user.style.top = (userTop + 1) + "px"
-        console.log("userTop : " ,userTop);
-        console.log("userLeft : " ,userLeft);
-        console.log("keyCode : ", e.keyCode);
+            if(userTop < window.innerHeight - 50){
+                user.style.top = (userTop + 5) + "px"
+            }
     });
 
     
