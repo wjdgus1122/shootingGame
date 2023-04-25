@@ -20,30 +20,27 @@
 </html>
 
 <script>
-    function GameObj( src, width, height, x , y){
-        this.x=x;
-        this.y=y;
-        this.image = new Image();
-        this.image.src = src;
-        this.width = width;
-        this.height = height;
-    }
+    
     setInterval(()=>{
         const bgWrap = document.querySelector(".bgWrap")
         let starX = window.innerWidth * 0.6;
         let starY = Math.floor(Math.random() * (window.innerHeight - 50));
         let starSpeed = Math.floor(Math.random() * 3);
-        let starDiv = document.createElement("div");
+        let starDiv = document.createElement("img");
 
         starDiv.classList.add("star");
-
+        starDiv.src = "./img/star.png"
         starDiv.style.top = starY + "px";
         starDiv.style.left = starX + "px";
         starDiv.style.animationDuration = starSpeed + "s";
-
+        
         bgWrap.appendChild(starDiv)
 
+        starDiv.addEventListener("animationend", () => starDiv.remove())
+        
     },500)
+
+    
     const user = document.querySelector(".userWrap");
     let userLeft = 0;
     window.addEventListener("keydown", function(e){
