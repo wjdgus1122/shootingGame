@@ -14,34 +14,46 @@
             <div class="userWrap">
                 <img src="./img/user.png" class="user"/>
             </div>
+            <div class="gameOver">
+                <h3>Game Over!</h3>
+                <button>다시하기</button>
+            </div>
         </div>
     </div>
 </body>
 </html>
 
 <script>
-    
+    let stoneList = [];
+
     setInterval(()=>{
         const bgWrap = document.querySelector(".bgWrap")
-        let starX = window.innerWidth * 0.6;
-        let starY = Math.floor(Math.random() * (window.innerHeight - 50));
-        let starSpeed = Math.floor(Math.random() * 3);
-        let starDiv = document.createElement("img");
+        let stoneX = window.innerWidth * 0.6;
+        let stoneY = Math.floor(Math.random() * (window.innerHeight - 50));
+        // let stoneSpeed = Math.floor(Math.random() * 3);
+        let stoneSpeed = 3
+        let stoneDiv = document.createElement("img");
 
-        starDiv.classList.add("star");
-        starDiv.src = "./img/star.png"
-        starDiv.style.top = starY + "px";
-        starDiv.style.left = starX + "px";
-        starDiv.style.animationDuration = starSpeed + "s";
+        stoneDiv.classList.add("stone");
+        stoneDiv.src = "./img/stone.png"
+        stoneDiv.style.top = stoneY + "px";
+        // stoneDiv.style.left = stoneX + "px";
+        stoneDiv.style.animationDuration = stoneSpeed + "s";
         
-        bgWrap.appendChild(starDiv)
-
-        starDiv.addEventListener("animationend", () => starDiv.remove())
+        bgWrap.appendChild(stoneDiv);
+        stoneList.push(stoneDiv);
         
-    },500)
+        stoneDiv.addEventListener("animationend", () => {
+            stoneDiv.remove();
+            stoneList.splice(stoneList.indexOf(stoneDiv), 1);
+        })
+        
+        // collision()
+    },5000)
 
     
     const user = document.querySelector(".userWrap");
+    const starEl = document.querySelectorAll(".star")
     let userLeft = 0;
     window.addEventListener("keydown", function(e){
         let key = e.keyCode;
@@ -64,8 +76,28 @@
             if(userTop < window.innerHeight - 50){
                 user.style.top = (userTop + 5) + "px"
             }
+        
     });
 
+    const collision = () => {
+        let userX = user.style.left == 0 ? 0 : parseInt(user.style.left.slice(0, -2));
+        let userY = user.style.top == 0 ? 0 : parseInt(user.style.top.slice(0, -2));
+        let userPoint = {x: userX + (user.clientWidth / 2), y : userY + (user.clientHeight / 2)}
+        // console.log("userPoint : ", userPoint);
+        for(i = 0; i < stoneList.length; i++){
+            let stoneX = stoneList[i].getBoundingClientRect().left  == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().left);
+            let stoneY = stoneList[i].getBoundingClientRect().top + window.pageYOffset == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().top + window.pageYOffset);
+            let stonePoint = {x: stoneX + (stoneList[i].clientWidth / 2), y : stoneY + (stoneList[i].clientHeight / 2)}
+            let distance = Math.sqrt(Math.pow((stonePoint.x - userPoint.x),2) + Math.pow((stonePoint.y - userPoint.y), 2))
+            console.log(stoneX);
+        }
 
+    }
+
+    setInterval(() => {
+        collision()
+    } , 10)
+
+    // console.log(stoneList);
 
 </script>
