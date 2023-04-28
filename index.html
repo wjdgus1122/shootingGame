@@ -16,7 +16,7 @@
             </div>
             <div class="gameOver">
                 <h3>Game Over!</h3>
-                <button>다시하기</button>
+                <button class="retryButton">다시하기</button>
             </div>
         </div>
     </div>
@@ -24,7 +24,32 @@
 </html>
 
 <script>
+    const user = document.querySelector(".userWrap");
+    const starEl = document.querySelectorAll(".star");
+    const gameover = document.querySelector(".gameOver");
+    const retrybtn = document.querySelector(".retryButton")
+    let userLeft = 0;
     let stoneList = [];
+
+    const collision = () => {
+        let userX = user.style.left == 0 ? 0 : parseInt(user.style.left.slice(0, -2));
+        let userY = user.style.top == 0 ? 0 : parseInt(user.style.top.slice(0, -2));
+        let userPoint = {x: userX + (user.clientWidth / 2), y : userY + (user.clientHeight / 2)}
+        for(i = 0; i < stoneList.length; i++){
+            let stoneX = stoneList[i].getBoundingClientRect().left  == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().left);
+            let stoneY = stoneList[i].getBoundingClientRect().top + window.pageYOffset == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().top + window.pageYOffset);
+            let stonePoint = {x: stoneX + (stoneList[i].clientWidth / 2), y : stoneY + (stoneList[i].clientHeight / 2)}
+            let distance = Math.sqrt(Math.pow((stonePoint.x - userPoint.x),2) + Math.pow((stonePoint.y - userPoint.y), 2))
+            if(distance < 40){
+                gameover.style.display = "flex";
+            }
+        }
+        
+    }
+
+    setInterval(() => {
+        collision()
+    } , 10)
 
     setInterval(()=>{
         const bgWrap = document.querySelector(".bgWrap")
@@ -48,13 +73,11 @@
             stoneList.splice(stoneList.indexOf(stoneDiv), 1);
         })
         
-        // collision()
     },5000)
-
     
-    const user = document.querySelector(".userWrap");
-    const starEl = document.querySelectorAll(".star")
-    let userLeft = 0;
+
+    retrybtn.addEventListener("click", () => gameover.style.display = "none")
+
     window.addEventListener("keydown", function(e){
         let key = e.keyCode;
         let userTop = window.pageYOffset + user.getBoundingClientRect().top;
@@ -79,25 +102,6 @@
         
     });
 
-    const collision = () => {
-        let userX = user.style.left == 0 ? 0 : parseInt(user.style.left.slice(0, -2));
-        let userY = user.style.top == 0 ? 0 : parseInt(user.style.top.slice(0, -2));
-        let userPoint = {x: userX + (user.clientWidth / 2), y : userY + (user.clientHeight / 2)}
-        // console.log("userPoint : ", userPoint);
-        for(i = 0; i < stoneList.length; i++){
-            let stoneX = stoneList[i].getBoundingClientRect().left  == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().left);
-            let stoneY = stoneList[i].getBoundingClientRect().top + window.pageYOffset == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().top + window.pageYOffset);
-            let stonePoint = {x: stoneX + (stoneList[i].clientWidth / 2), y : stoneY + (stoneList[i].clientHeight / 2)}
-            let distance = Math.sqrt(Math.pow((stonePoint.x - userPoint.x),2) + Math.pow((stonePoint.y - userPoint.y), 2))
-            console.log(stoneX);
-        }
-
-    }
-
-    setInterval(() => {
-        collision()
-    } , 10)
-
-    // console.log(stoneList);
+    
 
 </script>
