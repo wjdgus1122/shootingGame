@@ -18,6 +18,7 @@
                 <h3>Game Over!</h3>
                 <button class="retryButton">다시하기</button>
             </div>
+            <h1 class="timeWatch"><span id="min">00</span> : <span id="sec">00</span> : <span id="micro">00</span></h1>
         </div>
     </div>
 </body>
@@ -28,8 +29,13 @@
     const starEl = document.querySelectorAll(".star");
     const gameover = document.querySelector(".gameOver");
     const retrybtn = document.querySelector(".retryButton")
+   
     let userLeft = 0;
     let stoneList = [];
+    let time_min;
+    let time_sec;
+    let time_micro;
+    let timer = 0;
 
     const collision = () => {
         let userX = user.style.left == 0 ? 0 : parseInt(user.style.left.slice(0, -2));
@@ -42,6 +48,7 @@
             let distance = Math.sqrt(Math.pow((stonePoint.x - userPoint.x),2) + Math.pow((stonePoint.y - userPoint.y), 2))
             if(distance < 40){
                 gameover.style.display = "flex";
+                stop();
             }
         }
         
@@ -74,9 +81,78 @@
         })
         
     },5000)
+
     
 
-    retrybtn.addEventListener("click", () => gameover.style.display = "none")
+    const startTimer = () => {
+        if(timer > 0){
+            return ;
+        }
+        var micro = parseInt(document.getElementById("micro").innerText);
+        var sec = parseInt(document.getElementById("sec").innerText);
+        var min = parseInt(document.getElementById("min").innerText);
+        time_micro = setInterval(function(){
+            micro++;
+            if(micro == 100) {
+                micro = "00";
+            } else if(micro < 10){
+                micro = "0" + micro;
+            }
+            document.getElementById("micro").innerText = micro;
+        }, 10);
+
+        //start seconds
+        time_sec = setInterval(function(){
+            //console.log(i);
+            sec++;
+            if(sec == 60) {
+                sec = "00";
+            } else if(sec < 10){
+                sec = "0" + sec;
+            }
+            document.getElementById("sec").innerText = sec;
+        }, 1000);
+
+
+        //start minutes
+        time_min = setInterval(function(){
+            min++;
+
+            if(min == 60) {
+                min = 0;
+            } else if(min < 10){
+                min = "0" + min;
+            }
+
+            document.getElementById("min").innerText = min;
+        }, 60000);
+
+    
+
+        timer++;
+    }
+
+    startTimer()
+        
+    function stop(){
+            clearInterval(time_micro);
+            clearInterval(time_sec);
+            clearInterval(time_min);
+
+            timer--;
+            if(timer < 0)
+                timer = 0;
+    }
+    
+                
+
+    retrybtn.addEventListener("click", () => {
+        gameover.style.display = "none"
+        document.getElementById("micro").innerText = "00";
+        document.getElementById("sec").innerText = "00";
+        document.getElementById("min").innerText = "00";
+        startTimer()
+    })
 
     window.addEventListener("keydown", function(e){
         let key = e.keyCode;
