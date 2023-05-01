@@ -46,7 +46,7 @@
             let stoneY = stoneList[i].getBoundingClientRect().top + window.pageYOffset == 0 ? 0 : parseInt(stoneList[i].getBoundingClientRect().top + window.pageYOffset);
             let stonePoint = {x: stoneX + (stoneList[i].clientWidth / 2), y : stoneY + (stoneList[i].clientHeight / 2)}
             let distance = Math.sqrt(Math.pow((stonePoint.x - userPoint.x),2) + Math.pow((stonePoint.y - userPoint.y), 2))
-            if(distance < 40){
+            if(distance < 30){
                 gameover.style.display = "flex";
                 stop();
             }
@@ -159,21 +159,21 @@
         let userTop = window.pageYOffset + user.getBoundingClientRect().top;
         if(key === 37)
             if(userLeft > 0){
-                userLeft -= 5;
-                user.style.left = (userLeft -5) + "px"
+                userLeft -= 10;
+                user.style.left = (userLeft -10) + "px"
             }
         if(key === 39)
             if(userLeft < window.innerWidth * 0.7){
-                userLeft += 5;
-                user.style.left = (userLeft + 5)  + "px"
+                userLeft += 10;
+                user.style.left = (userLeft + 10)  + "px"
             }
         if(key === 38)
             if(userTop > 0){
-                user.style.top = (userTop - 5) + "px"
+                user.style.top = (userTop - 10) + "px"
             }
         if(key === 40)
             if(userTop < window.innerHeight - 50){
-                user.style.top = (userTop + 5) + "px"
+                user.style.top = (userTop + 10) + "px"
             }
         
     });
