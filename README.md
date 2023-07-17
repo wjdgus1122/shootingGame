@@ -1,9 +1,21 @@
 <div align="center">
-# shootingGame
-  
-## 프로젝트 설명
-- HTML, css, JS로 만든 간단한 게임
-- 아래 위 앞 뒤로 움직일 수 있으며, 장애물을 피하면서 하는 게임
-- 시간초가 카운트 되며, 장애물과 충돌하면 시간이 멈추고 게임이 종료된다.
-  
+
+# :mortar_board: 장애물 피하기 게임 :mortar_board:
+
+## 사이트 설명
+
+- [x] 날아오는 돌맹이를 피하면서 진행하는 게임
+- [x] PC에서만 이용가능합니다.
+
+### :computer: 사용한 기술 :computer:
+
+### skill
+
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+
+### 에디터
+
+  <img src="https://img.shields.io/badge/visualstudio-007ACC?style=for-the-badge&logo=visualstudio&logoColor=white">
+
 </div>
+
